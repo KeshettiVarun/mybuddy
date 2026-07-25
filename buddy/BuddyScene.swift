@@ -35,6 +35,13 @@ final class BuddyScene: SKScene {
         let dx = scenePoint.x - buddy.position.x
         let dy = scenePoint.y - buddy.position.y
         let distance = sqrt(dx * dx + dy * dy)
+        
+        // Face the direction of movement
+        if dx > 2 {
+            buddy.xScale = abs(buddy.xScale)
+        } else if dx < -2 {
+            buddy.xScale = -abs(buddy.xScale)
+        }
 
         if distance > 5 {
 
