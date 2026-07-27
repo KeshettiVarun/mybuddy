@@ -2,18 +2,36 @@ import SpriteKit
 
 final class BuddyNode: SKSpriteNode {
 
+    // MARK: - State
+
+    let stateMachine = BuddyStateMachine()
+
+    var state: BuddyState {
+        get {
+            stateMachine.currentState
+        }
+        set {
+            stateMachine.transition(to: newValue)
+        }
+    }
+
+    // MARK: - Animation
+
     let animation = AnimationController()
+
+    // MARK: - Initialization
 
     init() {
 
-        let texture = SKTexture(imageNamed: "BuddySpriteSheet")
-        texture.filteringMode = .linear
+        let idleFrames = TextureLibrary.shared.idle
 
         super.init(
-            texture: texture,
+            texture: idleFrames.first,
             color: .clear,
-            size: CGSize(width: 140, height: 140)
+            size: idleFrames.first?.size() ?? CGSize(width: 220, height: 220)
         )
+
+        name = "Buddy"
     }
 
     required init?(coder: NSCoder) {

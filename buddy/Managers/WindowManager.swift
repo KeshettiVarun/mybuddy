@@ -10,6 +10,10 @@ final class WindowManager {
 
     func register(window: NSWindow) {
         self.window = window
+
+        if let screen = NSScreen.main {
+            window.setFrame(screen.frame, display: true)
+        }
     }
 
     func makeTransparent() {

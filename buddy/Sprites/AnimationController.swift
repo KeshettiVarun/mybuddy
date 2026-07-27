@@ -2,40 +2,71 @@ import SpriteKit
 
 final class AnimationController {
 
-    enum State {
-        case idle
-        case walk
-        case run
-        case sleep
+    private let animationKey = "BuddyAnimation"
+
+    func play(_ state: BuddyState, on buddy: BuddyNode) {
+
+        // Don't replay the same animation
+        guard buddy.state != state else {
+            return
+        }
+
+        // Update Buddy's state through the state machine
+        buddy.state = state
+
+        // Stop current animation
+        buddy.removeAction(forKey: animationKey)
+
+        let animation = animationData(for: state)
+
+        guard !animation.textures.isEmpty else {
+            return
+        }
+
+        buddy.texture = animation.textures.first
+
+        let animate = SKAction.animate(
+            with: animation.textures,
+            timePerFrame: animation.frameTime,
+            resize: false,
+            restore: false
+        )
+
+        buddy.run(
+            .repeatForever(animate),
+            withKey: animationKey
+        )
     }
 
-    private(set) var currentState: State = .idle
+    // MARK: - Animation Lookup
 
-    func play(_ state: State, on buddy: SKSpriteNode) {
-
-        guard currentState != state else { return }
-
-        currentState = state
-
-        buddy.removeAllActions()
+    private func animationData(for state: BuddyState) -> (textures: [SKTexture], frameTime: TimeInterval) {
 
         switch state {
 
         case .idle:
-
-            buddy.setScale(1.0)
+            return (TextureLibrary.shared.idle, 0.15)
 
         case .walk:
-
-            buddy.setScale(1.05)
+            return (TextureLibrary.shared.walk, 0.10)
 
         case .run:
+            return (TextureLibrary.shared.run, 0.10)
 
-            buddy.setScale(1.10)
+        case .sit:
+            return (TextureLibrary.shared.sit, 0.15)
 
         case .sleep:
+            return (TextureLibrary.shared.sleep, 0.20)
 
-            buddy.setScale(0.95)
+        case .tailWag:
+            return (TextureLibrary.shared.tailWag, 0.12)
+
+        case .play:
+            return (TextureLibrary.shared.play, 0.10)
+
+        case .eat:
+            return (TextureLibrary.shared.idle, 0.15) // Placeholder until eat animation is added
         }
     }
 }
