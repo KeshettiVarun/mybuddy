@@ -15,9 +15,11 @@ final class BuddyNode: SKSpriteNode {
         }
     }
 
-    // MARK: - Animation
+    // MARK: - Components
 
     let animation = AnimationController()
+
+    private let movementController = MovementController()
 
     // MARK: - Initialization
 
@@ -36,5 +38,39 @@ final class BuddyNode: SKSpriteNode {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Movement
+
+    func moveToward(_ target: CGPoint) {
+
+        guard state != .sleep,
+              state != .eat else {
+            return
+        }
+
+        position = movementController.update(
+            position: position,
+            target: target
+        )
+
+        let velocityX = movementController.velocity.x
+
+        if abs(velocityX) > 1.5 {
+
+            if velocityX > 0 {
+                xScale = -abs(xScale)
+            } else {
+                xScale = abs(xScale)
+            }
+        }
+    }
+
+    var movementSpeed: CGFloat {
+
+        sqrt(
+            movementController.velocity.x * movementController.velocity.x +
+            movementController.velocity.y * movementController.velocity.y
+        )
     }
 }

@@ -38,6 +38,7 @@ final class BuddyScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
 
         let deltaTime = currentTime - lastUpdateTime
+        
         lastUpdateTime = currentTime
 
         GameManager.shared.update(

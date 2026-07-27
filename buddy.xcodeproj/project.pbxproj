@@ -29,15 +29,31 @@
 		CCC322F13014DD7C009186C8 /* buddyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = buddyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CCC323EE3017F855009186C8 /* Exceptions for "buddy" folder in "buddy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				buddyTests/buddyTests.swift,
+			);
+			target = CCC322D93014DD7A009186C8 /* buddy */;
+		};
+		CCC323EF3017F855009186C8 /* Exceptions for "buddy" folder in "buddyTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				buddyTests/buddyTests.swift,
+			);
+			target = CCC322E63014DD7C009186C8 /* buddyTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CCC322DC3014DD7A009186C8 /* buddy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CCC323EE3017F855009186C8 /* Exceptions for "buddy" folder in "buddy" target */,
+				CCC323EF3017F855009186C8 /* Exceptions for "buddy" folder in "buddyTests" target */,
+			);
 			path = buddy;
-			sourceTree = "<group>";
-		};
-		CCC322EA3014DD7C009186C8 /* buddyTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = buddyTests;
 			sourceTree = "<group>";
 		};
 		CCC322F43014DD7C009186C8 /* buddyUITests */ = {
@@ -76,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				CCC322DC3014DD7A009186C8 /* buddy */,
-				CCC322EA3014DD7C009186C8 /* buddyTests */,
 				CCC322F43014DD7C009186C8 /* buddyUITests */,
 				CCC322DB3014DD7A009186C8 /* Products */,
 			);
@@ -129,9 +144,6 @@
 			);
 			dependencies = (
 				CCC322E93014DD7C009186C8 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				CCC322EA3014DD7C009186C8 /* buddyTests */,
 			);
 			name = buddyTests;
 			packageProductDependencies = (
