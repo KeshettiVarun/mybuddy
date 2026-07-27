@@ -1,3 +1,8 @@
+//
+//  BuddyNode.swift
+//  buddy
+//
+
 import SpriteKit
 
 final class BuddyNode: SKSpriteNode {
@@ -18,7 +23,6 @@ final class BuddyNode: SKSpriteNode {
     // MARK: - Components
 
     let animation = AnimationController()
-
     private let movementController = MovementController()
 
     // MARK: - Initialization
@@ -34,6 +38,7 @@ final class BuddyNode: SKSpriteNode {
         )
 
         name = "Buddy"
+        zPosition = 100
     }
 
     required init?(coder: NSCoder) {
@@ -44,21 +49,22 @@ final class BuddyNode: SKSpriteNode {
 
     func moveToward(_ target: CGPoint) {
 
-        guard state != .sleep,
-              state != .eat else {
+        guard state != .sleep else {
             return
         }
+
+        let previousPosition = position
 
         position = movementController.update(
             position: position,
             target: target
         )
 
-        let velocityX = movementController.velocity.x
+        let dx = position.x - previousPosition.x
 
-        if abs(velocityX) > 1.5 {
+        if abs(dx) > 1 {
 
-            if velocityX > 0 {
+            if dx > 0 {
                 xScale = -abs(xScale)
             } else {
                 xScale = abs(xScale)
@@ -66,11 +72,18 @@ final class BuddyNode: SKSpriteNode {
         }
     }
 
+    // MARK: - Helpers
+
     var movementSpeed: CGFloat {
 
-        sqrt(
-            movementController.velocity.x * movementController.velocity.x +
-            movementController.velocity.y * movementController.velocity.y
+        hypot(
+            movementController.velocity.x,
+            movementController.velocity.y
         )
+    }
+
+    func stopMoving() {
+
+        movementController.velocity = .zero
     }
 }

@@ -9,6 +9,7 @@ import AppKit
 final class BuddyScene: SKScene {
 
     private let buddy = BuddyNode()
+    private let house = DogHouse()
     private let movementController = MovementController()
 
     private var idleTimer: TimeInterval = 0
@@ -25,11 +26,19 @@ final class BuddyScene: SKScene {
             size = screen.frame.size
         }
 
+        // Position the dog house (Bottom Left)
+        house.position = CGPoint(
+            x: house.size.width / 2 + 40,
+            y: house.size.height / 2 + 40
+        )
+
+        // Position Buddy
         buddy.position = CGPoint(
             x: size.width / 2,
             y: size.height / 2
         )
 
+        addChild(house)
         addChild(buddy)
 
         buddy.animation.play(.idle, on: buddy)
@@ -38,7 +47,6 @@ final class BuddyScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
 
         let deltaTime = currentTime - lastUpdateTime
-        
         lastUpdateTime = currentTime
 
         GameManager.shared.update(

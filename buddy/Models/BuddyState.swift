@@ -2,8 +2,6 @@
 //  BuddyState.swift
 //  buddy
 //
-//  Created by Varun Keshetti on 26/07/26.
-//
 
 enum BuddyState {
     case idle
@@ -14,4 +12,8 @@ enum BuddyState {
     case tailWag
     case play
     case eat
+
+    // House behaviour
+    case goingHome
+    case insideHouse
 }

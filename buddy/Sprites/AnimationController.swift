@@ -66,7 +66,17 @@ final class AnimationController {
             return (TextureLibrary.shared.play, 0.10)
 
         case .eat:
-            return (TextureLibrary.shared.idle, 0.15) // Placeholder until eat animation is added
+            return (TextureLibrary.shared.idle, 0.15)
+
+        case .goingHome:
+            // Walking home uses the walk animation
+            return (TextureLibrary.shared.walk, 0.10)
+
+        case .insideHouse:
+            // Buddy isn't visible inside the house yet,
+            // but return the sleep animation for now.
+            return (TextureLibrary.shared.sleep, 0.20)
         }
+    
     }
 }
